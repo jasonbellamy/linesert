@@ -1,0 +1,42 @@
+{
+  "name": "linesert",
+  "description": "Easily insert line(s) at a specific line number of a file.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jasonbellamy/linesert",
+  "author": {
+    "name": "Jason Bellamy",
+    "email": "j@sonbellamy.com",
+    "url": "http://jasonbellamy.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonbellamy/linesert.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonbellamy/linesert/issues"
+  },
+  "license": "MIT",
+  "main": "lib/linesert",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "3.1.2"
+  },
+  "dependencies": {
+    "q": "^1.1.2"
+  },
+  "keywords": [
+    "line",
+    "insert",
+    "insertAt",
+    "insertBefore",
+    "insertAfter",
+    "append",
+    "appendTo"
+  ]
+}
