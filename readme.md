@@ -19,48 +19,53 @@
 ## Usage
 
 ```javascript
-var Linesert = require( "linesert" );
+var linesert = require( "linesert" );
 
-var file = new Linesert( "file.txt" );
-/* file.txt
-   1.
-   3.
-*/
+// file.txt
+//=> 1.
+//=> 3.
 
-file.insert( "2." ).beforeLine( 2 );
-/* file.txt
-   1.
-   2.
-   3.
-*/
+linesert( "file.txt" ).beforeLine( 2 ).insert( "2.", function( err, result ) {
+  //=> 1.
+  //=> 2.
+  //=> 3.
+});
 ```
 
 
 ## API
 
-### Linesert( path )
+### linesert( path )
 
 Name   | Type     | Argument     | Description
 -------|----------|--------------|------------
 path   | `string` | `<required>` | the path of the file to be modified.
 
-### Linesert.insert( text )
-
-Name   | Type           | Argument     | Description
--------|----------------|--------------|------------
-text   | `string|array` | `<required>` | a string or array of strings to insert.
-
-### Linesert.beforeLine( number )
+### linesert.beforeLine( number )
 
 Name   | Type     | Argument     | Description
 -------|----------|--------------|------------
 number | `number` | `<required>` | the line number to insert the new lines before.
 
-### Linesert.afterLine( number )
+### linesert.afterLine( number )
 
 Name   | Type     | Argument     | Description
 -------|----------|--------------|------------
 number | `number` | `<required>` | the line number to insert the new lines after.
+
+### linesert.insert( text, callback )
+
+Name     | Type           | Argument     | Description
+---------|----------------|--------------|------------
+text     | `string|array` | `<required>` | a string or array of strings to insert.
+callback | `function`     | `<required>` | callback that returns the results of the update.
+
+#### callback( error, results )
+
+Name     | Type       | Argument     | Description
+---------|------------|--------------|------------
+error    | `error`    | `<required>` | any errors that may have occured.
+results  | `string`   | `<required>` | the output of the updated file.
 
 
 ## Contributing
