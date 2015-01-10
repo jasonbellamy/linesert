@@ -1,7 +1,7 @@
 {
   "name": "linesert",
   "description": "Easily insert line(s) at a specific line number of a file.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/jasonbellamy/linesert",
   "author": {
     "name": "Jason Bellamy",

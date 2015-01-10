@@ -3,42 +3,54 @@
 
 var should   = require( "should" );
 var fs       = require( "fs" );
-var Linesert = require( "../lib/linesert.js" );
+var linesert = require( "../lib/linesert.js" );
 
 describe( "Linesert", function () {
 
   var path = "test/fixtures/fixture";
   var text = "1.\n2.\n3.\n";
-  var file;
 
-  before( function( done ) {
-    file = new Linesert( path );
-
+  beforeEach( function( done ) {
     fs.writeFile( path, text, function( err, data ) {
       done();
     });
   });
 
-  it( "should insert lines before and after the specified line numbers.", function( done ) {
-    file.insert( "line one" ).beforeLine( 1 );
-    file.insert( "line two" ).afterLine( 1 );
-    file.insert( ["line three", "line four" ] ).afterLine( 2 );
-    file.insert( ["line eight", "line nine" ] ).afterLine( 7 );
-
-    fs.readFile( path, { encoding: "utf8" }, function( err, data ) {
-      var result = data.split( "\n" );
-
-      result[0].should.equal( "line one" );
-      result[1].should.equal( "line two" );
-      result[2].should.equal( "line three" );
-      result[3].should.equal( "line four" );
-      result[7].should.equal( "line eight" );
-      result[8].should.equal( "line nine" );
+  it( "should insert a single line BEFORE the specified line numbers.", function( done ) {
+    linesert( path ).beforeLine( 1 ).insert( "line one", function( err, data ) {
+      data.split( "\n" )[0].should.equal( "line one" );
       done();
     });
   });
 
-  after( function( done ) {
+  it( "should insert multiple lines before the specified line numbers.", function( done ) {
+    linesert( path ).beforeLine( 1 ).insert( ["line one", "line two"], function( err, data ) {
+      var lines = data.split( "\n" );
+
+      lines[0].should.equal( "line one" );
+      lines[1].should.equal( "line two" );
+      done();
+    });
+  });
+
+  it( "should insert a single line AFTER the specified line numbers.", function( done ) {
+    linesert( path ).afterLine( 1 ).insert( "line two", function( err, data ) {
+      data.split( "\n" )[1].should.equal( "line two" );
+      done();
+    });
+  });
+
+  it( "should insert multiple lines AFTER the specified line numbers.", function( done ) {
+    linesert( path ).afterLine( 1 ).insert( ["line one", "line two"], function( err, data ) {
+      var lines = data.split( "\n" );
+
+      lines[1].should.equal( "line one" );
+      lines[2].should.equal( "line two" );
+      done();
+    });
+  });
+
+  afterEach( function( done ) {
     fs.writeFile( path, text, function( err, data ) {
       done();
     });
